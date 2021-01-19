@@ -1,20 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CorePokus3.Models
+namespace CorePokus3.ViewModels
 {
     [Keyless]
     public class RegisterViewModel
-
-
     {
-        
-        
         [Display(Name = "First Name")]
         //[Required(ErrorMessage = "Firstname should be more than 2 characters")]
         [MinLength(2)]
@@ -60,10 +52,5 @@ namespace CorePokus3.Models
         //[MinLength(8)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        
-
-        
-
     }
 }

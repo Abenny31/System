@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CorePokus3.Models
+﻿namespace CorePokus3.Entities
 {
     public class User
     {

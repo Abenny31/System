@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CorePokus3.Models
+namespace CorePokus3.Entities
 {
     public class Person
     {
@@ -20,7 +17,5 @@ namespace CorePokus3.Models
         public bool IsEmployee { get; set; }
         public bool IsVolunteer { get; set; }
         public bool IsOutsorced { get; set; }
-
-
     }
 }

@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CorePokus3.Models;
+using CorePokus3.Entities;
+using CorePokus3.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using CorePokus3.Database;
+
 
 namespace CorePokus3.Database
 {
@@ -14,9 +12,6 @@ namespace CorePokus3.Database
         { }
         public DbSet<Person> Persons { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<CorePokus3.Models.RegisterViewModel> RegisterViewModel { get; set; }
+        public DbSet<RegisterViewModel> RegisterViewModel { get; set; }
     }
-
-   
-
 }
