@@ -7,7 +7,7 @@ using CorePokus3.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
-
+using CorePokus3.Database;
 
 namespace CorePokus3.Controllers
 {

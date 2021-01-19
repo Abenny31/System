@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorePokus3.Models;
+using CorePokus3.Database;
 
-namespace CorePokus3.Models
+namespace CorePokus3.Database
 {
     public class LoginDbContext :  DbContext
     {
