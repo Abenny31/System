@@ -68,7 +68,7 @@
             },
             "Microsoft.NETCore.App": {
               "target": "Package",
-              "version": "[2.1.0, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
