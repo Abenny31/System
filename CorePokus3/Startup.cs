@@ -26,7 +26,6 @@ namespace CorePokus3
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<LoginDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
             services.AddSession();
         }
