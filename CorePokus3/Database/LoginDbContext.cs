@@ -1,8 +1,10 @@
-﻿using CorePokus3.Entities;
+using CorePokus3.Entities;
 using CorePokus3.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using CorePokus3.Database;
 
-namespace CorePokus3.Models
+
+namespace CorePokus3.Database
 {
     public class LoginDbContext :  DbContext
     {
