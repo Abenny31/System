@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Welcome";
 }
-@model CorePokus3.Models.User;
+@model CorePokus3.Entities.User;
 @if (User.Identity.IsAuthenticated)
 { <h1>Welcome @User.Identity.Name </h1>}
      else{<h1>Welcome</h1>}

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using CorePokus3.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using CorePokus3.Database;
+using CorePokus3.ViewModels;
+using CorePokus3.Entities;
 
 namespace CorePokus3.Controllers
 {
