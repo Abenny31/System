@@ -2,114 +2,152 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CorePokus3.Database;
-using CorePokus3.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using CorePokus3.Database;
+using CorePokus3.Entities;
 
 namespace CorePokus3.Controllers
 {
-    [Authorize]
     public class EmployeeController : Controller
     {
-         private LoginDbContext _context;
+        private readonly LoginDbContext _context;
 
         public EmployeeController(LoginDbContext context)
         {
             _context = context;
         }
-         public async Task<IActionResult> Index()
-        {
 
+        // GET: People
+        public async Task<IActionResult> Index()
+        {
             return View(await _context.Persons.ToListAsync());
         }
 
-public async Task<IActionResult> Details(int? id)  
-        {  
-            //Dodat NotFound!
-            if (id == null)  
-            {  
-                return NotFound();  
-            }  
-  
-            var employe = await _context.Persons.FirstOrDefaultAsync(m => m.Id == id);  
+        // GET: People/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-  
-             
-  
-            if (employe == null)  
-            {  
-                return NotFound();  
-            }  
-  
-            return View(employe);  
-        }  
+            var person = await _context.Persons
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (person == null)
+            {
+                return NotFound();
+            }
 
-        public async Task<IActionResult> Edit(int? id)  
-        {  
-            if (id == null)  
-            {  
-                return NotFound();  
-            }  
-  
-            var employe = await _context.Persons.FindAsync(id);  
-            var employeViewModel = new RegisterViewModel()  
-            {  
-                FirstName = employe.FirstName,
-                    LastName = employe.LastName,
-                    Email = employe.Email,
-                    IsEmployee = employe.IsEmployee,
-                    Address = employe.Address,
-                    City = employe.City,
-                    DateOfBirth = employe.DateOfBirth,
-                    IsOutsorced = employe.IsOutsorced,
-                    IsVolunteer = employe.IsVolunteer,
-                    PIN = employe.PIN
-                
-            };  
-  
-            if (employe == null)  
-            {  
-                return NotFound();  
-            }  
-            return View(employeViewModel);  
-        }  
-  
-        [HttpPost]  
-        [ValidateAntiForgeryToken]  
-        public async Task<IActionResult> Edit(int id, employeViewModel model)  
-        {  
-            if (ModelState.IsValid)  
-            {  
-                var employe = await db.employes.FindAsync(model.Id);  
-                employe.employeName = model.employeName;  
-                employe.Qualification = model.Qualification;  
-                employe.Experience = model.Experience;  
-                employe.SpeakingDate = model.SpeakingDate;  
-                employe.SpeakingTime = model.SpeakingTime;  
-                employe.Venue = model.Venue;  
-  
-                if (model.employePicture != null)  
-                {  
-                    if (model.ExistingImage != null)  
-                    {  
-                        string filePath = Path.Combine(webHostEnvironment.WebRootPath, "Uploads", model.ExistingImage);  
-                        System.IO.File.Delete(filePath);  
-                    }  
-  
-                    employe.ProfilePicture = ProcessUploadedFile(model);  
-                }  
-                db.Update(employe);  
-                await db.SaveChangesAsync();  
-                return RedirectToAction(nameof(Index));  
-            }  
-            return View();  
-        }  
+            return View(person);
+        }
 
+        // GET: People/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        // POST: People/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Address,City,PIN,DateOfBirth,Email,IsEmployee,IsVolunteer,IsOutsorced")] Person person)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(person);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(person);
+        }
 
+        // GET: People/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var person = await _context.Persons.FindAsync(id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+            return View(person);
+        }
 
+        // POST: People/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Address,City,PIN,DateOfBirth,Email,IsEmployee,IsVolunteer,IsOutsorced")] Person person)
+        {
+            if (id != person.ID)
+            {
+                return NotFound();
+            }
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(person);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PersonExists(person.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(person);
+        }
+
+        // GET: People/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var person = await _context.Persons
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+
+            return View(person);
+        }
+
+        // POST: People/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var person = await _context.Persons.FindAsync(id);
+            _context.Persons.Remove(person);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool PersonExists(int id)
+        {
+            return _context.Persons.Any(e => e.ID == id);
+        }
     }
 }
