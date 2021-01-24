@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CorePokus3.Database;
 using CorePokus3.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CorePokus3.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly LoginDbContext _context;
@@ -43,27 +45,7 @@ namespace CorePokus3.Controllers
             return View(person);
         }
 
-        // GET: People/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: People/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Address,City,PIN,DateOfBirth,Email,IsEmployee,IsVolunteer,IsOutsorced")] Person person)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(person);
-        }
+       
 
         // GET: People/Edit/5
         public async Task<IActionResult> Edit(int? id)
