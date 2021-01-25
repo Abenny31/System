@@ -29,7 +29,7 @@ namespace CorePokus3.Controllers
             return View();
         }
 
-
+        // redirect na view koji ima izbor lista zaposlenika ili lista korisnika
         [HttpPost]
         public IActionResult Login(string Login, string Password)
         {

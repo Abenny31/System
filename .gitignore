@@ -362,4 +362,8 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # VSCode 
+<<<<<<< HEAD
 .vscode
+=======
+.vscode
+>>>>>>> ffef522abdcd232f0db6239c32d5842fd9164950

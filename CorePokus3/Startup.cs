@@ -24,6 +24,8 @@ namespace CorePokus3
             services.AddMvc();
             services.AddDbContext<LoginDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
             services.AddSession();
+            services.AddAuthorization();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +41,7 @@ namespace CorePokus3
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors();
+            app.UseAuthorization();
            // app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
