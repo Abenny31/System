@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CorePokus3.Database;
-using Microsoft.AspNetCore.Authorization;
+using CorePokus3.Entities;
 
 namespace CorePokus3
 {
@@ -21,6 +21,10 @@ namespace CorePokus3
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<User, AppRole>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<LoginDbContext>();
             services.AddMvc();
             services.AddDbContext<LoginDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
             services.AddSession();
@@ -42,7 +46,7 @@ namespace CorePokus3
             app.UseRouting();
             app.UseCors();
             app.UseAuthorization();
-           // app.UseAuthorization();
+           app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

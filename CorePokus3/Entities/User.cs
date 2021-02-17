@@ -1,6 +1,8 @@
-﻿namespace CorePokus3.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CorePokus3.Entities
 {
-    public class User
+    public class User : IdentityUser<int>
     {
         public int Id { get; set; }
         public string Login { get; set; }
