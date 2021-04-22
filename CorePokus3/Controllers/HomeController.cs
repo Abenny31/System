@@ -48,7 +48,7 @@ namespace CorePokus3.Controllers
             ViewBag.Error = "Email or Password is not matching";
             return View("index");
         }
-        [HttpGet]
+        [HttpGet] 
         public IActionResult Register()
         {
             return View();

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CorePokus3.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class EmployeeController : Controller
     {
         private readonly LoginDbContext _context;

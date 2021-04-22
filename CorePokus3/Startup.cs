@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CorePokus3.Database;
 using CorePokus3.Entities;
+using Microsoft.AspNetCore.Http;
 
 namespace CorePokus3
 {
@@ -29,7 +30,18 @@ namespace CorePokus3
             services.AddDbContext<LoginDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("myconn")));
             services.AddSession();
             services.AddAuthorization();
-          
+            
+          //  services.ConfigureApplicationCookie(options =>
+          //{
+          //    options.LoginPath=("/Account/Login");
+
+          //          //Promjena routa nakon linka 
+          //  // options.Cookie.Name = "auth_cookie";
+          //   //options.Cookie.SameSite = SameSiteMode.None;
+          //  // options.LoginPath = new PathString("/Employee/Index");
+          //   //options.AccessDeniedPath = new PathString("/Home/Login");
+          // });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +56,12 @@ namespace CorePokus3
             app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors();
             app.UseAuthorization();
-           app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Login}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Login}/{id?}");
                
                 //endpoints.MapRazorPages();
             });
